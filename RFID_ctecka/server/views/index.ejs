@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Scanning Table</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Evidence karet</h1>
+
+        <form id="cardForm">
+            <label for="nameInput">Jméno uživatele:</label>
+            <input type="text" id="nameInput" name="name" required />
+            
+            <label for="cardIdInput">ID karty:</label>
+            <input type="text" id="cardIdInput" name="cardID" required />
+      
+            <button type="submit">Přidat</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID karty</th>
+                    <th>Uživatel</th>
+                    <th>Datum</th>
+                    <th>Čas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(const card of cards){ %>
+                    <% 
+                        const date = new Date(card.time);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const hour = String(date.getHours() - 1).padStart(2, '0');
+                        const minutes = String(date.getMinutes()).padStart(2, '0');
+                        const seconds = String(date.getSeconds()).padStart(2, '0'); 
+                    %>
+                    <tr>
+                        <td><%= card.card_id%></td>
+                        <td><%= card.name%></td>
+                        <td><%= `${day}.${month}.`%></td>
+                        <td><%= `${hour}:${minutes}:${seconds}`%></td>
+                    </tr>
+                <% }; %>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('cardForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+        
+            const name = document.getElementById('nameInput').value.trim();
+            const cardID = document.getElementById('cardIdInput').value.trim();
+        
+            if (!name || !cardID || isNaN(cardID)) {
+                alert('Zadejte platné jméno a číselné ID karty.');
+                return;
+            }
+        
+            try {
+                const response = await fetch('/api/add_card', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: `${name}|${cardID}`
+                });
+        
+                if (response.ok) {
+                    alert('Karta úspěšně přidána.');
+                    location.reload(); // Reload to see new data
+                } else {
+                    const errText = await response.text();
+                    alert(`Chyba: ${errText}`);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Došlo k chybě při odesílání požadavku.');
+            }
+        });
+        </script>        
+</body>
+</html>
