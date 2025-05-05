@@ -70,7 +70,7 @@
         
                 if (response.ok) {
                     alert('Karta úspěšně přidána.');
-                    location.reload(); // Reload to see new data
+                    location.reload();
                 } else {
                     const errText = await response.text();
                     alert(`Chyba: ${errText}`);
