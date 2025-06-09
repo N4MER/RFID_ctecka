@@ -17,7 +17,7 @@ app.get('/', async (req, res) => {
   res.render('index', {cards});
 });
 
-app.post('/api/receive_card_id', async (req, res) => {
+app.post('/receive_card_id', async (req, res) => {
   const cardID = req.body.trim();
 
   if (!/^\d+$/.test(cardID)) {
@@ -34,7 +34,7 @@ app.post('/api/receive_card_id', async (req, res) => {
   }
 });
 
-app.post('/api/add_card', async (req, res) => {
+app.post('/add_card', async (req, res) => {
   const [name, card_id] = req.body.split('|').map(s => s.trim());
   
   if (!name || !card_id || isNaN(card_id)) {
