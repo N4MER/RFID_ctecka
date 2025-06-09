@@ -5,7 +5,7 @@ const app = express();
 
 database.connect();
 
-const hostname = 'ip serveru';
+const hostname = 'ip adresa serveru';
 const port = 3000;
 
 app.set('view engine', 'ejs');
