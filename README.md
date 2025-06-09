@@ -5,19 +5,22 @@ Potřebné technologie:
 Node.js
 Microsoft SQL Server Management Studio
 Arduino IDE
+Jakýkoliv terminál
 
-Postup nastavení čtečky:
+Postup instalace čtečky:
 
-1.) V Microsoft SQL Server Management Studiu spusťte soubor db.sql, který naleznete ve složce others
+1.) Stáhněte si složku RFID_čtečka
 
-2.) V terminálu zadejte umístění souboru a zadejte příkaz npm install
+2.) Vytvořte databázi v Microsoft Management Studiu pomocí souboru db.sql, který naleznete v RFID_ctecka/other
 
-3.) Otevřete složku server a najděte soubor app.js na řádku 8 přepište ip serveru na ip vašeho serveru
+3.) V terminálu zadejte cestu ke složce server a zadejte příkaz npm install
 
-4.) Ve složce mz modules otevřete soubor database.js a přepište config na řádku 4 na přihlašovací údaje k vaší databázi
+4.) Otevřete soubor app.js v RFID_ctecka/server ip adresu serveru na ip adresu vašeho serveru
 
-5.) V terminálu zadejte příkaz npm run app.js
+5.) otevřete database.js v RFID_ctecka/server/myModules a přepište config na přihlašovací údaje do vaší databáze
 
-6.) Otevřete soubor wifi_modul.ino a na řádek 4 zadejte název sítě na kterém beží server a heslo (pokud nějaké je). Nakonec nahrajte soubor na wifi modul esp8266 a zapněte serial monitor
+6.) V terminálu zadejte příkaz npm run app.js
 
-7.) Nahrajte soubor ctecka.ino na arduino
+7.) Otevřete soubor wifi_modul.ino v RFID_ctecka/other/wifi_modul a do řádku ssid napište název sítě na ktém běží náš server a místo password heslo k vaší síti. Poté napište do serverUrl ip adresu serveru a za to napište /receive_card_id Nakonec nahrajte soubor do wifi modulu esp8266 a zapněte serial monitor
+
+8.) Nahrajte soubor ctecka.ino na arduino
